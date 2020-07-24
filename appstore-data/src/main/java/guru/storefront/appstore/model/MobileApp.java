@@ -16,6 +16,9 @@ import java.util.Set;
 public class MobileApp extends BaseEntity{
     private String name;
     private double cost;
+
+    @ManyToOne
+    @JoinColumn(name="platform_type_id")
     private PlatformType platformType;
 
     @Lob
