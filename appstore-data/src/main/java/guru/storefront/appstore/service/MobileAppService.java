@@ -6,6 +6,7 @@ import guru.storefront.appstore.model.MobileApp;
 import guru.storefront.appstore.pojo.MobileAppPojo;
 import guru.storefront.appstore.repository.MobileAppRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -53,6 +54,11 @@ public class MobileAppService implements CrudService<MobileApp,Long> {
         return apps;
     }
 
+    //return POJO version of Mobile App model
+    public MobileAppPojo findMobileAppPojoById(Long Id){
+        return mobileAppModelToPojo.convert(findById(Id));
+    }
+
     @Override
     public void deleteById(Long Id) {
         mobileAppRepository.deleteById(Id);
@@ -62,4 +68,6 @@ public class MobileAppService implements CrudService<MobileApp,Long> {
     public void delete(MobileApp object) {
         mobileAppRepository.delete(object);
     }
+
+
 }

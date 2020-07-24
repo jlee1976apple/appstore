@@ -66,8 +66,8 @@
                             <p class="card-text" th:text="${#strings.substring(app.description,1,100)}"></p>
 
                             <div class="btn-group">
-                                <a href="$" th:href="@{'/mobileApp/' + ${app.id} + '/view'}" class="btn btn-sm btn-outline-secondary">View</a>
-                                <a href="$" th:href="@{'/mobileApp/' + ${app.id} + '/edit'}" class="btn btn-sm btn-outline-secondary">Edit</a>
+                                <a href="$" th:href="@{'/app/' + ${app.id} + '/view'}" class="btn btn-sm btn-outline-secondary">View</a>
+                                <a href="$" th:href="@{'/app/' + ${app.id} + '/edit'}" class="btn btn-sm btn-outline-secondary">Edit</a>
                             </div>
                         </div>
 
