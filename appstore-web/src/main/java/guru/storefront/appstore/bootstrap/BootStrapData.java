@@ -15,7 +15,7 @@ public class BootStrapData implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-
+        //test bootstrap...
         MobileApp app1 = new MobileApp();
         MobileApp app2 = new MobileApp();
         MobileApp app3 = new MobileApp();
