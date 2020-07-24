@@ -66,10 +66,11 @@
                             <p class="card-text" th:text="${#strings.substring(app.description,1,100)}"></p>
 
                             <div class="btn-group">
-                                <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                                <a href="$" th:href="@{'/mobileApp/' + ${app.id} + '/view'}" class="btn btn-sm btn-outline-secondary">View</a>
+                                <a href="$" th:href="@{'/mobileApp/' + ${app.id} + '/edit'}" class="btn btn-sm btn-outline-secondary">Edit</a>
                             </div>
                         </div>
+
                         <div class="card-footer">
                             <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
                         </div>
