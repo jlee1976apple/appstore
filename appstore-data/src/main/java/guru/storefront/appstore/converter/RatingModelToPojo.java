@@ -12,12 +12,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class RatingModelToPojo implements Converter<Rating, RatingPojo> {
 
-    private final MobileAppModelToPojo converter;
-
-    public RatingModelToPojo(MobileAppModelToPojo converter) {
-        this.converter = converter;
-    }
-
     @Synchronized
     @Nullable
     @Override

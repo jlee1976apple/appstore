@@ -2,18 +2,16 @@ package guru.storefront.appstore.converter;
 
 import guru.storefront.appstore.model.Rating;
 import guru.storefront.appstore.pojo.RatingPojo;
+import lombok.Synchronized;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
 @Component
 public class RatingPojoToModel implements Converter<RatingPojo, Rating> {
 
-    private final MobileAppPojoToModel converter;
-
-    public RatingPojoToModel(MobileAppPojoToModel converter) {
-        this.converter = converter;
-    }
-
+    @Synchronized
+    @Nullable
     @Override
     public Rating convert(RatingPojo source) {
         if (source == null){

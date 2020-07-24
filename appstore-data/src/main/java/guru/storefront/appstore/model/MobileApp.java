@@ -17,8 +17,7 @@ public class MobileApp extends BaseEntity{
     private String name;
     private double cost;
 
-    @ManyToOne
-    @JoinColumn(name="platform_type_id")
+    @OneToOne
     private PlatformType platformType;
 
     @Lob

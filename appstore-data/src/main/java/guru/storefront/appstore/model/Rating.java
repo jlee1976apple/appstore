@@ -18,6 +18,15 @@ public class Rating extends BaseEntity{
     private String comments;
 
     @ManyToOne
-    @JoinColumn(name="app_id")
     private MobileApp mobileApp;
+
+    @Override
+    public String toString() {
+        return "Rating{" +
+                "Id=" + super.getId() + '\'' +
+                ", username='" + username + '\'' +
+                ", rating=" + rating +
+                ", comments='" + comments + '\'' +
+                '}';
+    }
 }

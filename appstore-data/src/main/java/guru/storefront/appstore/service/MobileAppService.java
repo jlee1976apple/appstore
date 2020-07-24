@@ -9,20 +9,23 @@ import java.util.Set;
 
 @Service
 public class MobileAppService implements CrudService<MobileApp,Long> {
-    private final MobileAppRepository repository;
+    private final MobileAppRepository mobileAppRepository;
 
-    public MobileAppService(MobileAppRepository repository) {
-        this.repository = repository;
+    public MobileAppService(MobileAppRepository mobileAppRepository) {
+        this.mobileAppRepository = mobileAppRepository;
     }
 
     @Override
     public MobileApp save(MobileApp object) {
-        return repository.save(object);
+        if (object == null){return null;}
+        else{
+         return mobileAppRepository.save(object);
+        }
     }
 
     @Override
     public MobileApp findById(Long Id) {
-        return repository.findById(Id).get();
+        return mobileAppRepository.findById(Id).get();
     }
 
     @Override
@@ -30,22 +33,20 @@ public class MobileAppService implements CrudService<MobileApp,Long> {
         return findById(object.getId());
     }
 
-    @Override
     public Set<MobileApp> findAll() {
         Set<MobileApp> apps = new HashSet<>();
-        repository.findAll().forEach(apps :: add);
+        mobileAppRepository.findAll().forEach(apps :: add);
 
         return apps;
     }
 
     @Override
     public void deleteById(Long Id) {
-        repository.deleteById(Id);
+        mobileAppRepository.deleteById(Id);
     }
 
     @Override
     public void delete(MobileApp object) {
-        repository.delete(object);
+        mobileAppRepository.delete(object);
     }
-
 }

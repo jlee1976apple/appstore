@@ -10,12 +10,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class ReviewPojoToModel implements Converter<ReviewPojo, Review> {
 
-    private final ReviewPojoToModel converter;
-
-    public ReviewPojoToModel(ReviewPojoToModel converter) {
-        this.converter = converter;
-    }
-
     @Synchronized
     @Nullable
     @Override
