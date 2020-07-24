@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class MobileAppPojoToModel implements Converter<MobileAppPojo, MobileApp> {
+
+    /* private data members: data converter, rating and review converters */
     private final PlatformTypePojoToModel platformTypeConverter;
     private final RatingPojoToModel ratingConverter;
     private final ReviewPojoToModel reviewConverter;

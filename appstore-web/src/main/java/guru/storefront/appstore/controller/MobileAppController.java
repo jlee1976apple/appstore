@@ -17,8 +17,8 @@ public class MobileAppController {
 
     @GetMapping("/app/{id}/view")
     public String showMobileAppView(@PathVariable String id, Model model){
-        model.addAttribute("mobileApp",mobileAppService.findPojoById(id));
+        model.addAttribute("mobileApp",mobileAppService.findPojoById(Long.valueOf(id)));
 
-        return "mobileApps/view";
+        return "mobileApp/view";
     }
 }

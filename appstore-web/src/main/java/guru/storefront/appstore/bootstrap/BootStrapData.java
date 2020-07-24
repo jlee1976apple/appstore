@@ -33,6 +33,10 @@ public class BootStrapData implements CommandLineRunner {
         MobileApp app4 = new MobileApp();
         MobileApp app5 = new MobileApp();
         MobileApp app6 = new MobileApp();
+        MobileApp app7 = new MobileApp();
+        MobileApp app8 = new MobileApp();
+        MobileApp app9 = new MobileApp();
+
 
         //set platform Types;
         PlatformType iosType = new PlatformType();
@@ -115,6 +119,27 @@ public class BootStrapData implements CommandLineRunner {
         app6.setTotalRatings(440.00);
         app6.setAvgRating(4.59);
 
+        app7.setName("Verizon Wireless");
+        app7.setDescription("a GPS navigation software app owned by Google. It works on smartphones and tablet computers that have GPS support. It provides turn-by-turn navigation information and user-submitted travel times and route details, while downloading location-dependent information over a mobile telephone network. Waze describes its app as a community-driven GPS navigation app, which is free to download and use.");
+        app7.setCost(3.50);
+        app7.setCurrentVersion("1.0");
+        app7.setTotalRatings(440.00);
+        app7.setAvgRating(4.59);
+
+        app8.setName("AT&T");
+        app8.setDescription("a GPS navigation software app owned by Google. It works on smartphones and tablet computers that have GPS support. It provides turn-by-turn navigation information and user-submitted travel times and route details, while downloading location-dependent information over a mobile telephone network. Waze describes its app as a community-driven GPS navigation app, which is free to download and use.");
+        app8.setCost(3.50);
+        app8.setCurrentVersion("1.0");
+        app8.setTotalRatings(440.00);
+        app8.setAvgRating(4.59);
+
+        app9.setName("LinkedIn, Inc.");
+        app9.setDescription("LinkedIn has developed apps for the iPhone and Android smartphones. (The Blackberry and Windows versions are officially retired.) The LinkedIn app is free and connects you seamlessly to your LinkedIn account from your phone. The app is well-designed, fast, and easy to use.");
+        app9.setCost(3.50);
+        app9.setCurrentVersion("1.0");
+        app9.setTotalRatings(440.00);
+        app9.setAvgRating(4.59);
+
         app1.getRatings().add(r1);
         app1.getRatings().add(r2);
         app1.getRatings().add(r3);
@@ -134,5 +159,8 @@ public class BootStrapData implements CommandLineRunner {
         mobileAppService.save(app4);
         mobileAppService.save(app5);
         mobileAppService.save(app6);
+        mobileAppService.save(app7);
+        mobileAppService.save(app8);
+        mobileAppService.save(app9);
     }
 }

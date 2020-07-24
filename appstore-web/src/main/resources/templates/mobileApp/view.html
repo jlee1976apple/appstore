@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Mobile App Detail view.</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+          th:href="@{/webjars/bootstrap/4.5.0/css/bootstrap.min.css}"
+          crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"
+            crossorigin="anonymous"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+            integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+            th:src="@{/webjars/bootstrap/4.5.0/js/bootstrap.min.js}"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+
+
+<div class="card" style="width: 70%;">
+    <div class="card-header">
+        <h5 class="card-title" th:text="${mobileApp.name} + ' Detail'"></h5>
+    </div>
+
+    <div class="card-body">
+        <p class="card-text" style="width:50%;" th:text="${mobileApp.description}"></p>
+        <p class="card-text" style="width:50%;" th:text="'Cost: ' + ${mobileApp.cost == 0.00 ? 'Free' : '$' + mobileApp.cost}"></p>
+        <p class="card-text" style="width:50%;" th:text="'Current Version: v' + ${mobileApp.currentVersion}"></p>
+        <p class="card-text" th:text="'Avg Rating: ' + ${mobileApp.avgRating} + ' out of ' + ${mobileApp.totalRatings} + ' total Ratings.'"></p>
+
+        <a th:href="@{/mobileApp/} + ${mobileApp.id} + @{/edit}" class="btn btn-primary btn-sm">Edit App</a>
+        <a th:href="@{/mobileApp/} + ${mobileApp.id} + @{/delete}" class="btn btn-primary btn-sm">Delete App</a>
+    </div>
+
+    <div class="card-header">
+        <h5 class="card-title">App Ratings</h5>
+    </div>
+
+    <div class="card-body">
+        <div th:if="${mobileApp.ratings.size() == 0}">
+            <p class="card-text">No ratings</p>
+        </div>
+        <div th:unless="${mobileApp.ratings != null}">
+            <table class="table table-borderless table-sm">
+                <thead>
+                <tr>
+                    <th scope="col">Username</th>
+                    <th scope="col">Comments</th>
+                    <th scope="col">Rating</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="rating: ${mobileApp.ratings}">
+                    <td valign="top" th:text="${rating.username}"></td>
+                    <td valign="top" th:text="${rating.comments}"></td>
+                    <td valign="top"><small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <br>
+        <a th:href="@{/mobileApp/} + ${mobileApp.id} + @{/rate/new}" class="btn btn-primary btn-sm">Rate App</a>
+    </div>
+
+    <div class="card-header">
+        <h5 class="card-title">Reviews</h5>
+    </div>
+
+    <div class="card-body">
+        <div th:if="${mobileApp.reviews.size() == 0}">
+            <p class="card-text">No Reviews</p>
+        </div>
+
+        <div th:unless="${mobileApp.reviews != null}">
+            <table class="table table-borderless">
+                <thead>
+                <tr>
+                    <th scope="col">Username</th>
+                    <th scope="col">Comments</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="review: ${mobileApp.reviews}">
+                    <td valign="top" th:text="${review.username}"></td>
+                    <td valign="top" th:text="${review.review}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <br>
+        <a th:href="@{/mobileApp/} + ${mobileApp.id} + @{/review/new}" class="btn btn-primary btn-sm">Review App</a>
+    </div>
+
+    <div class="card-footer">
+        <small class="text-muted" th:text="'Total Ratings: ' + ${mobileApp.totalRatings}"></small><br>
+        <small class="text-muted">Avg. Rating: &#9733; &#9733; &#9733; &#9733; &#9734;</small>
+
+        <br><br>
+        <a th:href="@{/}" class="btn btn-primary btn-sm">Back to homepage</a>
+    </div>
+</div>
+
+</body>
+</html>

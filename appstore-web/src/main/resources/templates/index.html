@@ -58,21 +58,24 @@
                 <div class="col-lg-4 col-md-6 mb-4" th:each="app: ${apps}">
                     <div class="card h-100">
                         <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                        <div class="card-header">
+                            <h5 th:text="${app.name}"></h5>
+                        </div>
                         <div class="card-body">
-                            <h4 class="card-title">
-                                <a href="#" th:text="${app.name}"></a>
-                            </h4>
-                            <h5 th:text="'$' + ${app.getCost()}"></h5>
-                            <p class="card-text" th:text="${#strings.substring(app.description,1,100)}"></p>
+                            <p class="card-text" th:text="${#strings.substring(app.description,0,99)}"></p>
+
+                            <h5 th:text="${app.getCost() == 0.00 ? 'Free' : '$' + app.getCost()}"></h5>
 
                             <div class="btn-group">
                                 <a href="$" th:href="@{'/app/' + ${app.id} + '/view'}" class="btn btn-sm btn-outline-secondary">View</a>
                                 <a href="$" th:href="@{'/app/' + ${app.id} + '/edit'}" class="btn btn-sm btn-outline-secondary">Edit</a>
                             </div>
+
                         </div>
 
                         <div class="card-footer">
-                            <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                            <small class="text-muted" th:text="'Total Ratings: ' + ${app.totalRatings}"></small><br>
+                            <small class="text-muted">Avg. Rating: &#9733; &#9733; &#9733; &#9733; &#9734;</small>
                         </div>
                     </div>
                 </div>
