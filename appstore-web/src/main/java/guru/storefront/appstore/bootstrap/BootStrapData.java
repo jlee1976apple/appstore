@@ -32,6 +32,7 @@ public class BootStrapData implements CommandLineRunner {
         MobileApp app3 = new MobileApp();
         MobileApp app4 = new MobileApp();
         MobileApp app5 = new MobileApp();
+        MobileApp app6 = new MobileApp();
 
         //set platform Types;
         PlatformType iosType = new PlatformType();
@@ -71,6 +72,7 @@ public class BootStrapData implements CommandLineRunner {
 
         //initialize all apps.
         app1.setName("Waze App");
+        app1.setDescription("a GPS navigation software app owned by Google. It works on smartphones and tablet computers that have GPS support. It provides turn-by-turn navigation information and user-submitted travel times and route details, while downloading location-dependent information over a mobile telephone network. Waze describes its app as a community-driven GPS navigation app, which is free to download and use.");
         app1.setPlatformType(iosType);
         app1.getRatings().add(r1);
         app1.setCost(0.00);
@@ -79,28 +81,39 @@ public class BootStrapData implements CommandLineRunner {
         app1.setAvgRating(4.5);
 
         app2.setName("Kakao");
+        app2.setDescription("a GPS navigation software app owned by Google. It works on smartphones and tablet computers that have GPS support. It provides turn-by-turn navigation information and user-submitted travel times and route details, while downloading location-dependent information over a mobile telephone network. Waze describes its app as a community-driven GPS navigation app, which is free to download and use.");
         app2.setCost(0.00);
         app2.setCurrentVersion("1.1");
         app2.setTotalRatings(50.00);
         app2.setAvgRating(4.3);
 
         app3.setName("Uber");
+        app3.setDescription("a GPS navigation software app owned by Google. It works on smartphones and tablet computers that have GPS support. It provides turn-by-turn navigation information and user-submitted travel times and route details, while downloading location-dependent information over a mobile telephone network. Waze describes its app as a community-driven GPS navigation app, which is free to download and use.");
         app3.setCost(0.00);
         app3.setCurrentVersion("2.0");
         app3.setTotalRatings(200.00);
         app3.setAvgRating(4.0);
 
         app4.setName("Bank of America");
+        app4.setDescription("a GPS navigation software app owned by Google. It works on smartphones and tablet computers that have GPS support. It provides turn-by-turn navigation information and user-submitted travel times and route details, while downloading location-dependent information over a mobile telephone network. Waze describes its app as a community-driven GPS navigation app, which is free to download and use.");
         app4.setCost(0.00);
         app4.setCurrentVersion("1.0");
         app4.setTotalRatings(240.00);
         app4.setAvgRating(4.49);
 
         app5.setName("US Bank");
+        app5.setDescription("a GPS navigation software app owned by Google. It works on smartphones and tablet computers that have GPS support. It provides turn-by-turn navigation information and user-submitted travel times and route details, while downloading location-dependent information over a mobile telephone network. Waze describes its app as a community-driven GPS navigation app, which is free to download and use.");
         app5.setCost(0.00);
         app5.setCurrentVersion("2.0");
         app5.setTotalRatings(440.00);
         app5.setAvgRating(4.59);
+
+        app6.setName("Capital One");
+        app6.setDescription("a GPS navigation software app owned by Google. It works on smartphones and tablet computers that have GPS support. It provides turn-by-turn navigation information and user-submitted travel times and route details, while downloading location-dependent information over a mobile telephone network. Waze describes its app as a community-driven GPS navigation app, which is free to download and use.");
+        app6.setCost(3.50);
+        app6.setCurrentVersion("1.0");
+        app6.setTotalRatings(440.00);
+        app6.setAvgRating(4.59);
 
         app1.getRatings().add(r1);
         app1.getRatings().add(r2);
@@ -120,5 +133,6 @@ public class BootStrapData implements CommandLineRunner {
         mobileAppService.save(app3);
         mobileAppService.save(app4);
         mobileAppService.save(app5);
+        mobileAppService.save(app6);
     }
 }

@@ -4,6 +4,7 @@ import guru.storefront.appstore.model.PlatformType;
 import guru.storefront.appstore.repository.PlatformTypeRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Service
@@ -27,6 +28,13 @@ public class PlatformTypeService implements CrudService<PlatformType, Long> {
     @Override
     public PlatformType find(PlatformType object) {
         return findById(object.getId());
+    }
+
+    @Override
+    public Set<PlatformType> findAll() {
+        Set<PlatformType> types = new HashSet<>();
+        repository.findAll().forEach(types :: add);
+        return types;
     }
 
     @Override

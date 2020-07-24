@@ -13,6 +13,7 @@ import java.util.Set;
 public class MobileAppPojo {
     private Long id;
     private String name;
+    private String description;
     private double cost;
 
     private PlatformTypePojo platformType;

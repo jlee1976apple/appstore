@@ -33,6 +33,7 @@ public class MobileAppModelToPojo implements Converter<MobileApp, MobileAppPojo>
 
             target.setId(source.getId());
             target.setName(source.getName());
+            target.setDescription(source.getDescription());
             target.setCost(source.getCost());
 
             //deal with platform type

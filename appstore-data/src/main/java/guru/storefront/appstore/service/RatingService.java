@@ -31,6 +31,13 @@ public class RatingService implements CrudService<Rating, Long> {
     }
 
     @Override
+    public Set<Rating> findAll(){
+        Set<Rating> ratings = new HashSet<>();
+        repository.findAll().forEach(ratings :: add);
+        return ratings;
+    }
+
+    @Override
     public void deleteById(Long Id) {
         repository.deleteById(Id);
     }
@@ -40,10 +47,4 @@ public class RatingService implements CrudService<Rating, Long> {
         repository.delete(object);
     }
 
-    public Set<Rating> findAll() {
-        Set<Rating> ratings = new HashSet<>();
-
-        repository.findAll().forEach(ratings :: add);
-        return ratings;
-    }
 }

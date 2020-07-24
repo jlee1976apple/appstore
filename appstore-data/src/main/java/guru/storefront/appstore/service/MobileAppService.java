@@ -1,6 +1,9 @@
 package guru.storefront.appstore.service;
 
+import guru.storefront.appstore.converter.MobileAppModelToPojo;
+import guru.storefront.appstore.converter.MobileAppPojoToModel;
 import guru.storefront.appstore.model.MobileApp;
+import guru.storefront.appstore.pojo.MobileAppPojo;
 import guru.storefront.appstore.repository.MobileAppRepository;
 import org.springframework.stereotype.Service;
 
@@ -10,9 +13,15 @@ import java.util.Set;
 @Service
 public class MobileAppService implements CrudService<MobileApp,Long> {
     private final MobileAppRepository mobileAppRepository;
+    private final MobileAppModelToPojo mobileAppModelToPojo;
+    private final MobileAppPojoToModel mobileAppPojoToModel;
 
-    public MobileAppService(MobileAppRepository mobileAppRepository) {
+    public MobileAppService(MobileAppRepository mobileAppRepository, MobileAppModelToPojo mobileAppModelToPojo,
+                            MobileAppPojoToModel mobileAppPojoToModel) {
+
         this.mobileAppRepository = mobileAppRepository;
+        this.mobileAppModelToPojo = mobileAppModelToPojo;
+        this.mobileAppPojoToModel = mobileAppPojoToModel;
     }
 
     @Override
@@ -28,15 +37,19 @@ public class MobileAppService implements CrudService<MobileApp,Long> {
         return mobileAppRepository.findById(Id).get();
     }
 
+    public MobileAppPojo findPojoById(Long Id){
+        return mobileAppModelToPojo.convert(findById(Id));
+    }
+
     @Override
     public MobileApp find(MobileApp object) {
         return findById(object.getId());
     }
 
-    public Set<MobileApp> findAll() {
+    @Override
+    public Set<MobileApp> findAll(){
         Set<MobileApp> apps = new HashSet<>();
         mobileAppRepository.findAll().forEach(apps :: add);
-
         return apps;
     }
 
