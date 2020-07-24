@@ -22,7 +22,7 @@ public class MobileApp extends BaseEntity{
     private PlatformType platformType;
 
     @Lob
-    private byte[] image;
+    private Byte[] image;
 
     private String currentVersion;
     private double totalRatings;
@@ -32,5 +32,5 @@ public class MobileApp extends BaseEntity{
     Set<Rating> ratings = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "mobileApp")
-    Set<Rating> reviews = new HashSet<>();
+    Set<Review> reviews = new HashSet<>();
 }
