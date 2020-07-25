@@ -27,7 +27,8 @@
     </div>
 
     <div class="card-body">
-        <form th:object="${mobileApp}" method="post">
+        <form th:action="@{/app/save}" th:object="${mobileApp}" method="post">
+            <input type="hidden" th:field="*{id}">
             <div class="form-group">
                 <label for="name">Name</label>
                 <!--
@@ -39,7 +40,7 @@
 
             <div class="form-group">
                 <label for="description">Description</label>
-                <textarea class="form-control" id="description" rows="3" th:text="*{description}"></textarea>
+                <textarea class="form-control" id="description" rows="3" th:field="*{description}"></textarea>
             </div>
 
             <div class="form-group">
@@ -48,17 +49,38 @@
             </div>
 
             <div class="form-group">
-                <label for="cost">Platform Type</label>
+                <label for="platformType">Platform Type</label>
 
-                <select class="custom-select mr-sm-2" id="platformType" th:field="*{platformType}">
-                    <option value="1">ios</option>
-                    <option value="2">Android</option>
+                <select class="custom-select mr-sm-2" id="platformTypeNum" name="platformTypeNum">
+
+                    <div th:if="${mobileApp.platformType == null}">
+                        <option th:each="p: ${platformTypes}" th:text="${p.name}"
+                                th:selected="${p.id == 1}"
+                                th:value="${p.id}">
+                    </div>
+                    <div th:unless="${mobileApp.platformType == null}">
+                        <option th:each="p: ${platformTypes}" th:text="${p.name}"
+                                th:selected="${p.id == mobileApp.platformType.id}"
+                                th:value="${p.id}">
+
+                        </option>
+                    </div>
+
                 </select>
             </div>
 
             <div class="form-group">
                 <label for="currentVersion">Current Version</label>
                 <input type="text" class="form-control" id="currentVersion" th:field="*{currentVersion}">
+            </div>
+
+            <div class="form-group">
+                <label></label>
+                <!--
+                <a th:href="@{/app/} + ${mobileApp.id} + @{/save}" class="btn btn-primary btn-sm">Save</a>
+                -->
+                <button type="submit" class="btn btn-primary btn-sm">Save</button>
+                <a th:href="@{/app/} + ${mobileApp.id} + @{/view}" class="btn btn-primary btn-sm">View</a>
             </div>
         </form>
     </div>

@@ -69,5 +69,11 @@ public class MobileAppService implements CrudService<MobileApp,Long> {
         mobileAppRepository.delete(object);
     }
 
+    @Transactional
+    public MobileAppPojo saveMobileAppPojo (MobileAppPojo pojo){
+        MobileApp model = mobileAppPojoToModel.convert(pojo);
+        MobileApp savedModel = mobileAppRepository.save(model);
 
+        return mobileAppModelToPojo.convert(savedModel);
+    }
 }

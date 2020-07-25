@@ -1,18 +1,22 @@
 package guru.storefront.appstore.controller;
 
+import guru.storefront.appstore.model.PlatformType;
 import guru.storefront.appstore.pojo.MobileAppPojo;
+import guru.storefront.appstore.pojo.PlatformTypePojo;
 import guru.storefront.appstore.service.MobileAppService;
+import guru.storefront.appstore.service.PlatformTypeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class MobileAppController {
     private final MobileAppService mobileAppService;
+    private final PlatformTypeService platformTypeService;
 
-    public MobileAppController(MobileAppService mobileAppService) {
+    public MobileAppController(MobileAppService mobileAppService, PlatformTypeService platformTypeService) {
         this.mobileAppService = mobileAppService;
+        this.platformTypeService = platformTypeService;
     }
 
     @GetMapping("/app/{id}/view")
@@ -25,7 +29,21 @@ public class MobileAppController {
     @GetMapping("/app/{id}/edit")
     public String displayAppEditForm(@PathVariable String id, Model model){
         model.addAttribute("mobileApp",mobileAppService.findPojoById(Long.valueOf(id)));
+        model.addAttribute("platformTypes", platformTypeService.findAll());
 
         return "app/form";
+    }
+
+    @PostMapping("/app/save")
+    public String saveAppForm(@ModelAttribute MobileAppPojo pojo, @RequestParam("platformTypeNum") String platformID){
+        //retrieve platformType object based on ID submitted from the form, then save the object into pojo...
+        PlatformTypePojo platformTypePojo = platformTypeService.findPojoById(Long.valueOf(platformID));
+        pojo.setPlatformType(platformTypePojo);
+
+        //save pojo as model, then return back pojo version of model from repository...
+        MobileAppPojo target = mobileAppService.saveMobileAppPojo(pojo);
+
+        //redirect the control to view page.
+        return "redirect:/app/" + target.getId() + "/view";
     }
 }

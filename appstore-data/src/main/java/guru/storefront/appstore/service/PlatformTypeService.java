@@ -1,6 +1,8 @@
 package guru.storefront.appstore.service;
 
+import guru.storefront.appstore.converter.PlatformTypeModelToPojo;
 import guru.storefront.appstore.model.PlatformType;
+import guru.storefront.appstore.pojo.PlatformTypePojo;
 import guru.storefront.appstore.repository.PlatformTypeRepository;
 import org.springframework.stereotype.Service;
 
@@ -10,9 +12,11 @@ import java.util.Set;
 @Service
 public class PlatformTypeService implements CrudService<PlatformType, Long> {
     private final PlatformTypeRepository repository;
+    private final PlatformTypeModelToPojo modelToPojo;
 
-    public PlatformTypeService(PlatformTypeRepository repository) {
+    public PlatformTypeService(PlatformTypeRepository repository, PlatformTypeModelToPojo modelToPojo) {
         this.repository = repository;
+        this.modelToPojo = modelToPojo;
     }
 
     @Override
@@ -23,6 +27,10 @@ public class PlatformTypeService implements CrudService<PlatformType, Long> {
     @Override
     public PlatformType findById(Long Id) {
         return repository.findById(Id).get();
+    }
+
+    public PlatformTypePojo findPojoById(Long Id){
+        return modelToPojo.convert(findById(Id));
     }
 
     @Override
