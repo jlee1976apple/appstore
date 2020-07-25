@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultra">
 <head>
     <meta charset="UTF-8">
     <title>Mobile App Detail view.</title>
@@ -29,12 +29,13 @@
 
     <div class="card-body">
         <p class="card-text" style="width:50%;" th:text="${mobileApp.description}"></p>
+        <p class="card-text" style="width:50%;" th:text="'Platform: ' + ${mobileApp.platformType == null ? 'N/A' : mobileApp.platformType.name}"></p>
         <p class="card-text" style="width:50%;" th:text="'Cost: ' + ${mobileApp.cost == 0.00 ? 'Free' : '$' + mobileApp.cost}"></p>
         <p class="card-text" style="width:50%;" th:text="'Current Version: v' + ${mobileApp.currentVersion}"></p>
         <p class="card-text" th:text="'Avg Rating: ' + ${mobileApp.avgRating} + ' out of ' + ${mobileApp.totalRatings} + ' total Ratings.'"></p>
 
-        <a th:href="@{/mobileApp/} + ${mobileApp.id} + @{/edit}" class="btn btn-primary btn-sm">Edit App</a>
-        <a th:href="@{/mobileApp/} + ${mobileApp.id} + @{/delete}" class="btn btn-primary btn-sm">Delete App</a>
+        <a th:href="@{/app/} + ${mobileApp.id} + @{/edit}" class="btn btn-primary btn-sm">Edit App</a>
+        <a th:href="@{/app/} + ${mobileApp.id} + @{/delete}" class="btn btn-primary btn-sm">Delete App</a>
     </div>
 
     <div class="card-header">
@@ -45,7 +46,7 @@
         <div th:if="${mobileApp.ratings.size() == 0}">
             <p class="card-text">No ratings</p>
         </div>
-        <div th:unless="${mobileApp.ratings != null}">
+        <div th:unless="${mobileApp.ratings.size() == 0}">
             <table class="table table-borderless table-sm">
                 <thead>
                 <tr>
@@ -95,7 +96,7 @@
         </div>
 
         <br>
-        <a th:href="@{/mobileApp/} + ${mobileApp.id} + @{/review/new}" class="btn btn-primary btn-sm">Review App</a>
+        <a th:href="@{/app/} + ${mobileApp.id} + @{/review/new}" class="btn btn-primary btn-sm">Review App</a>
     </div>
 
     <div class="card-footer">

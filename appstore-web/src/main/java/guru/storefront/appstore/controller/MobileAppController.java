@@ -19,6 +19,13 @@ public class MobileAppController {
     public String showMobileAppView(@PathVariable String id, Model model){
         model.addAttribute("mobileApp",mobileAppService.findPojoById(Long.valueOf(id)));
 
-        return "mobileApp/view";
+        return "app/view";
+    }
+
+    @GetMapping("/app/{id}/edit")
+    public String displayAppEditForm(@PathVariable String id, Model model){
+        model.addAttribute("mobileApp",mobileAppService.findPojoById(Long.valueOf(id)));
+
+        return "app/form";
     }
 }
