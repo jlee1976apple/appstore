@@ -28,12 +28,14 @@
     </div>
 
     <div class="card-body">
-        <p class="card-text" style="width:50%;" th:text="${mobileApp.description}"></p>
+        <p class="card-text" style="width:50%;" th:text="${mobileApp.description}">
+        </p>
         <p class="card-text" style="width:50%;" th:text="'Platform: ' + ${mobileApp.platformType == null ? 'N/A' : mobileApp.platformType.name}"></p>
         <p class="card-text" style="width:50%;" th:text="'Cost: ' + ${mobileApp.cost == 0.00 ? 'Free' : '$' + mobileApp.cost}"></p>
         <p class="card-text" style="width:50%;" th:text="'Current Version: v' + ${mobileApp.currentVersion}"></p>
         <p class="card-text" th:text="'Avg Rating: ' + ${mobileApp.avgRating} + ' out of ' + ${mobileApp.totalRatings} + ' total Ratings.'"></p>
 
+        <a href="$" th:href="@{/app/} + ${mobileApp.id} + @{/uploadImage}" class="btn btn-primary btn-sm">Modify Image</a>
         <a th:href="@{/app/} + ${mobileApp.id} + @{/edit}" class="btn btn-primary btn-sm">Edit App</a>
         <a th:href="@{/app/} + ${mobileApp.id} + @{/delete}" class="btn btn-primary btn-sm">Delete App</a>
     </div>

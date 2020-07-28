@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Mobile App Image Form</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+          th:href="@{/webjars/bootstrap/4.5.0/css/bootstrap.min.css}"
+          crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"
+            crossorigin="anonymous"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+            integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+            th:src="@{/webjars/bootstrap/4.5.0/js/bootstrap.min.js}"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div class="card" style="width: 70%;">
+    <div class="card-header">
+        <h5 class="card-title" th:text="${mobileApp.name} + ' Form'"></h5>
+    </div>
+
+    <div class="card-body">
+        <form th:action="@{/app/saveImage}" th:object="${mobileApp}" method="post" enctype="multipart/form-data">
+            <input type="hidden" th:field="*{id}">
+            <div class="form-group">
+                <label>File Upload</label>
+                <input type="file"
+                       th:field="${mobileApp.image}"
+                       name="appFile"/>
+            </div>
+
+            <div class="form-group">
+                <label></label>
+                <!--
+                <a th:href="@{/app/} + ${mobileApp.id} + @{/save}" class="btn btn-primary btn-sm">Save</a>
+                -->
+                <button type="submit" class="btn btn-primary btn-sm">Upload</button>
+                <a th:href="@{/app/} + ${mobileApp.id} + @{/view}" class="btn btn-primary btn-sm">Back to view detail</a>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+</body>
+</html>

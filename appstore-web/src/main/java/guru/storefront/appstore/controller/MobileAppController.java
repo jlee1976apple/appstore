@@ -34,6 +34,13 @@ public class MobileAppController {
         return "app/form";
     }
 
+    @GetMapping("/app/{id}/uploadImage")
+    public String displayImageForm(@PathVariable String id, Model model){
+        model.addAttribute("mobileApp", mobileAppService.findPojoById(Long.valueOf(id)));
+
+        return "app/appImageForm";
+    }
+
     @PostMapping("/app/save")
     public String saveAppForm(@ModelAttribute MobileAppPojo pojo, @RequestParam("platformTypeNum") String platformID){
         //retrieve platformType object based on ID submitted from the form, then save the object into pojo...
