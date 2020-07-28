@@ -70,6 +70,14 @@ public class MobileAppService implements CrudService<MobileApp,Long> {
     }
 
     @Transactional
+    public void saveImage(Byte[] imageFile, Long id){
+        MobileAppPojo pojo = mobileAppModelToPojo.convert(mobileAppRepository.findById(id).get());
+        pojo.setImage(imageFile);
+
+        mobileAppRepository.save(mobileAppPojoToModel.convert(pojo));
+    }
+
+    @Transactional
     public MobileAppPojo saveMobileAppPojo (MobileAppPojo pojo){
         MobileApp model = mobileAppPojoToModel.convert(pojo);
         MobileApp savedModel = mobileAppRepository.save(model);

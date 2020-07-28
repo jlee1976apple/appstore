@@ -28,6 +28,16 @@
     </div>
 
     <div class="card-body">
+
+        <div th:if="${mobileApp.image == null}">
+            <img class="card-img-top" src="http://placehold.it/700x400" style="width:200px;height:100px;" alt="No Image">
+        </div>
+
+        <div th:unless="${mobileApp.image == null}">
+            <img class="card-img-top" th:src="@{/app/} + ${mobileApp.id} + @{/renderImageFromDB}" style="width:200px;height:100px;" th:alt="${mobileApp.name}">
+        </div>
+        </a>
+
         <p class="card-text" style="width:50%;" th:text="${mobileApp.description}">
         </p>
         <p class="card-text" style="width:50%;" th:text="'Platform: ' + ${mobileApp.platformType == null ? 'N/A' : mobileApp.platformType.name}"></p>

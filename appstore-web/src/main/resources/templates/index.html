@@ -57,7 +57,16 @@
 
                 <div class="col-lg-4 col-md-6 mb-4" th:each="app: ${apps}">
                     <div class="card h-100">
-                        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                        <a href="#"><!-- <img class="card-img-top" src="http://placehold.it/700x400" alt="">-->
+                        <div th:if="${app.image == null}">
+                            <img class="card-img-top" src="http://placehold.it/700x400" alt="No Image">
+                        </div>
+
+                        <div th:unless="${app.image == null}">
+                            <img class="card-img-top" th:src="@{/app/} + ${app.id} + @{/renderImageFromDB}" th:alt="${app.name}">
+                        </div>
+                        </a>
+
                         <div class="card-header">
                             <h5 th:text="${app.name}"></h5>
                         </div>
