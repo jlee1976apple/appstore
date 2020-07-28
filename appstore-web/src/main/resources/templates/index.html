@@ -67,8 +67,8 @@
                             <h5 th:text="${app.getCost() == 0.00 ? 'Free' : '$' + app.getCost()}"></h5>
 
                             <div class="btn-group">
-                                <a href="$" th:href="@{'/app/' + ${app.id} + '/view'}" class="btn btn-sm btn-outline-secondary">Detail</a>
-                                <a href="$" th:href="@{'/app/' + ${app.id} + '/edit'}" class="btn btn-sm btn-outline-secondary">Modify</a>
+                                <a href="$" th:href="@{'/app/' + ${app.id} + '/view'}" class="btn btn-sm btn-outline-secondary">View</a>
+                                <a href="$" th:href="@{'/app/' + ${app.id} + '/edit'}" class="btn btn-sm btn-outline-secondary">Edit</a>
                             </div>
 
                         </div>
