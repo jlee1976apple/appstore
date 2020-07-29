@@ -41,6 +41,14 @@ public class MobileAppController {
         return "app/view";
     }
 
+    @GetMapping("/app/new")
+    public String displayAppCreateForm(Model model){
+        model.addAttribute("mobileApp", new MobileAppPojo());
+        model.addAttribute("platformTypes", platformTypeService.findAll());
+
+        return "app/form";
+    }
+
     @GetMapping("/app/{id}/edit")
     public String displayAppEditForm(@PathVariable String id, Model model){
         model.addAttribute("mobileApp",mobileAppService.findPojoById(Long.valueOf(id)));
