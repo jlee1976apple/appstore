@@ -1,11 +1,16 @@
 package guru.storefront.appstore.controller;
 
 import guru.storefront.appstore.converter.MobileAppModelToPojo;
+import guru.storefront.appstore.converter.RatingPojoToModel;
+import guru.storefront.appstore.model.MobileApp;
 import guru.storefront.appstore.model.PlatformType;
+import guru.storefront.appstore.model.Rating;
 import guru.storefront.appstore.pojo.MobileAppPojo;
 import guru.storefront.appstore.pojo.PlatformTypePojo;
+import guru.storefront.appstore.pojo.RatingPojo;
 import guru.storefront.appstore.service.MobileAppService;
 import guru.storefront.appstore.service.PlatformTypeService;
+import guru.storefront.appstore.service.RatingService;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,10 +26,12 @@ import java.io.InputStream;
 public class MobileAppController {
     private final MobileAppService mobileAppService;
     private final PlatformTypeService platformTypeService;
+    private final RatingService ratingService;
 
-    public MobileAppController(MobileAppService mobileAppService, PlatformTypeService platformTypeService) {
+    public MobileAppController(MobileAppService mobileAppService, PlatformTypeService platformTypeService, RatingService ratingService) {
         this.mobileAppService = mobileAppService;
         this.platformTypeService = platformTypeService;
+        this.ratingService = ratingService;
     }
 
     @GetMapping("/app/{id}/view")
@@ -95,5 +102,42 @@ public class MobileAppController {
 
         //redirect the control to view page.
         return "redirect:/app/" + target.getId() + "/view";
+    }
+
+    @PostMapping("/app/{appId}/saveRateIt")
+    public String saveAppRating(@PathVariable String appId, @RequestParam("username") String username,
+                              @RequestParam("comments") String comments, @RequestParam("rating") String rating){
+
+        //instantiate rating pojo object based on form values.
+        RatingPojoToModel converter = new RatingPojoToModel();
+        RatingPojo pojo = new RatingPojo();
+        MobileApp app = mobileAppService.findById(Long.valueOf(appId));
+
+        pojo.setUsername(username);
+        pojo.setComments(comments);
+        pojo.setRating(Double.valueOf(rating));
+
+        //save rating pojo into rating repository.
+        Rating modelToSave = converter.convert(pojo);
+        modelToSave.setMobileApp(app);
+        Rating savedRatingModel = ratingService.save(modelToSave);
+
+        double totalRatingCount = app.getRatings().size() + 1;
+        double totalRatings = 0.00;
+        for(Rating r: app.getRatings()){
+            totalRatings += r.getRating();
+        }
+        totalRatings += modelToSave.getRating();
+        double avgRatings = totalRatings / totalRatingCount;
+
+        //add newly saved rating into modelApp
+        app.getRatings().add(savedRatingModel);
+        app.setTotalRatings(totalRatingCount);
+        app.setAvgRating(avgRatings);
+
+        //save modified mobileApp into repository.
+        mobileAppService.save(app);
+
+        return "redirect:/app/" + appId + "/view";
     }
 }

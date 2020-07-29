@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultra">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Mobile App Detail view.</title>
@@ -11,7 +11,11 @@
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
             integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-            th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"
+            crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            th:src="@{/webjars/popper.js/1.16.0/umd/popper.min.js}"
             crossorigin="anonymous"></script>
 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
@@ -20,7 +24,6 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
-
 
 <div class="card" style="width: 70%;">
     <div class="card-header">
@@ -43,7 +46,7 @@
         <p class="card-text" style="width:50%;" th:text="'Platform: ' + ${mobileApp.platformType == null ? 'N/A' : mobileApp.platformType.name}"></p>
         <p class="card-text" style="width:50%;" th:text="'Cost: ' + ${mobileApp.cost == 0.00 ? 'Free' : '$' + mobileApp.cost}"></p>
         <p class="card-text" style="width:50%;" th:text="'Current Version: v' + ${mobileApp.currentVersion}"></p>
-        <p class="card-text" th:text="'Avg Rating: ' + ${mobileApp.avgRating} + ' out of ' + ${mobileApp.totalRatings} + ' total Ratings.'"></p>
+        <p class="card-text" th:text="'Avg Rating: ' + ${#numbers.formatDecimal(mobileApp.avgRating,1,2)} + ' out of 5 (' + ${mobileApp.getRatings().size()} + ' total Ratings)'"></p>
 
         <a href="$" th:href="@{/app/} + ${mobileApp.id} + @{/uploadImage}" class="btn btn-primary btn-sm">Modify Image</a>
         <a th:href="@{/app/} + ${mobileApp.id} + @{/edit}" class="btn btn-primary btn-sm">Edit App</a>
@@ -71,14 +74,58 @@
                 <tr th:each="rating: ${mobileApp.ratings}">
                     <td valign="top" th:text="${rating.username}"></td>
                     <td valign="top" th:text="${rating.comments}"></td>
-                    <td valign="top"><small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small></td>
+                    <td valign="top">
+                        <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734; <!--<label th:text="'(' + ${rating.rating} + ')'"></label>-->
+                            <label th:text="'(' + ${#numbers.formatDecimal(rating.rating,1,2)} + ')'"></label>
+                        </small>
+                    </td>
                 </tr>
                 </tbody>
             </table>
         </div>
 
         <br>
+        <!--
         <a th:href="@{/mobileApp/} + ${mobileApp.id} + @{/rate/new}" class="btn btn-primary btn-sm">Rate App</a>
+        -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#rateAppModal" app-ID="${mobileApp.id}">Rate App</button>
+
+        <div class="modal fade" id="rateAppModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel" th:text="'Rate ' + ${mobileApp.name}"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form th:object="${mobileApp}" th:action="@{'/app/'} + ${id} + @{/saveRateIt}" method="post">
+                            <div class="form-group">
+                                <label for="username" class="col-form-label">Username:</label>
+                                <input type="text" class="form-control" id="username" name="username">
+                            </div>
+                            <div class="form-group">
+                                <label for="comments" class="col-form-label">Comments:</label>
+                                <textarea class="form-control" id="comments" name="comments"></textarea>
+                            </div>
+                            <div class="form-group">
+
+                                <label for="rating">Rating</label>
+                                <input type="range" class="form-control-range" id="rating" name="rating" min="1" max="5">
+
+                            </div>
+
+                            <div class="form-group">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Rate App</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <div class="card-header">
@@ -109,11 +156,12 @@
 
         <br>
         <a th:href="@{/app/} + ${mobileApp.id} + @{/review/new}" class="btn btn-primary btn-sm">Review App</a>
+
     </div>
 
     <div class="card-footer">
-        <small class="text-muted" th:text="'Total Ratings: ' + ${mobileApp.totalRatings}"></small><br>
-        <small class="text-muted">Avg. Rating: &#9733; &#9733; &#9733; &#9733; &#9734;</small>
+        <small class="text-muted" th:text="'Total Ratings: ' + ${mobileApp.getRatings().size()}"></small><br>
+        <small class="text-muted">Avg. Rating: &#9733; &#9733; &#9733; &#9733; &#9734; <label th:text="'(' + ${#numbers.formatDecimal(mobileApp.avgRating,1,2)} + ')'"></label></small>
 
         <br><br>
         <a th:href="@{/}" class="btn btn-primary btn-sm">Back to homepage</a>

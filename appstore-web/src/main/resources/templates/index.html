@@ -83,8 +83,10 @@
                         </div>
 
                         <div class="card-footer">
-                            <small class="text-muted" th:text="'Total Ratings: ' + ${app.totalRatings}"></small><br>
-                            <small class="text-muted">Avg. Rating: &#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                            <small class="text-muted" th:text="'Total Ratings: ' + ${app.getRatings().size()}">
+                            </small>
+                            <br>
+                            <small class="text-muted">Avg. Rating: &#9733; &#9733; &#9733; &#9733; &#9734; <label th:text="'(' + ${#numbers.formatDecimal(app.avgRating,1,2)} + ')'"></label></small>
                         </div>
                     </div>
                 </div>
