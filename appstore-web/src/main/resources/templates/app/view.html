@@ -128,37 +128,6 @@
 
     </div>
 
-    <div class="card-header">
-        <h5 class="card-title">Reviews</h5>
-    </div>
-
-    <div class="card-body">
-        <div th:if="${mobileApp.reviews.size() == 0}">
-            <p class="card-text">No Reviews</p>
-        </div>
-
-        <div th:unless="${mobileApp.reviews != null}">
-            <table class="table table-borderless">
-                <thead>
-                <tr>
-                    <th scope="col">Username</th>
-                    <th scope="col">Comments</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="review: ${mobileApp.reviews}">
-                    <td valign="top" th:text="${review.username}"></td>
-                    <td valign="top" th:text="${review.review}"></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <br>
-        <a th:href="@{/app/} + ${mobileApp.id} + @{/review/new}" class="btn btn-primary btn-sm">Review App</a>
-
-    </div>
-
     <div class="card-footer">
         <small class="text-muted" th:text="'Total Ratings: ' + ${mobileApp.getRatings().size()}"></small><br>
         <small class="text-muted">Avg. Rating: &#9733; &#9733; &#9733; &#9733; &#9734; <label th:text="'(' + ${#numbers.formatDecimal(mobileApp.avgRating,1,2)} + ')'"></label></small>

@@ -122,12 +122,11 @@ public class MobileAppController {
         modelToSave.setMobileApp(app);
         Rating savedRatingModel = ratingService.save(modelToSave);
 
-        double totalRatingCount = app.getRatings().size() + 1;
+        double totalRatingCount = app.getRatings().size();
         double totalRatings = 0.00;
         for(Rating r: app.getRatings()){
             totalRatings += r.getRating();
         }
-        totalRatings += modelToSave.getRating();
         double avgRatings = totalRatings / totalRatingCount;
 
         //add newly saved rating into modelApp
