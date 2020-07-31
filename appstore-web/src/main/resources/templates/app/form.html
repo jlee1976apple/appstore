@@ -24,7 +24,7 @@
 <div class="card" style="width: 70%;">
     <div class="card-header">
         <div th:if="${mobileApp.name == null}">
-            <h5 class="card-title">New Form</h5>
+            <h5 class="card-title">New Formmmm</h5>
         </div>
         <div th:unless="${mobileApp.name == null}">
             <h5 class="card-title" th:text="${mobileApp.name} + ' Form'"></h5>
@@ -81,11 +81,16 @@
 
             <div class="form-group">
                 <label></label>
-                <!--
-                <a th:href="@{/app/} + ${mobileApp.id} + @{/save}" class="btn btn-primary btn-sm">Save</a>
-                -->
-                <button type="submit" class="btn btn-primary btn-sm">Save</button>
-                <a th:href="@{/app/} + ${mobileApp.id} + @{/view}" class="btn btn-primary btn-sm">Back to view detail</a>
+
+                <div th:if="${mobileApp.id} == null">
+                    <button type="submit" class="btn btn-primary btn-sm">Save</button>
+                    <a th:href="@{/}" class="btn btn-primary btn-sm">Back to Homepage</a>
+                </div>
+                <div th:unless="${mobileApp.id} == null">
+                    <button type="submit" class="btn btn-primary btn-sm">Save</button>
+                    <a th:href="@{/app/} + ${mobileApp.id} + @{/view}" class="btn btn-primary btn-sm">Back to view detail</a>
+                </div>
+
             </div>
         </form>
     </div>
